@@ -10,18 +10,18 @@ namespace MPSig {
     class SigScanner {
         std::vector<char> m_data;
         std::intptr_t m_offset;
-        std::vector<char> m_functionStartSig;
+        SigScannerEntry m_functionStartSig;
     public:
         SigScanner(const std::string& fName);
         SigScanner(const std::vector<char>& data);
 
         // Getter
         std::intptr_t GetOffset() const;
-        std::vector<char> GetFunctionStartSig() const;
+        SigScannerEntry GetFunctionStartSig() const;
         
         // Setter
         void SetOffset(std::intptr_t val);
-        void SetFunctionStartSig(const std::vector<char>& val);
+        void SetFunctionStartSig(const SigScannerEntry& val);
     
         // Functions
 

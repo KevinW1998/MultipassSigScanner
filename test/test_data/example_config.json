@@ -1,0 +1,15 @@
+{
+    offset: 10,
+    function-start-sig: [ "55 8B EC" ],
+    signatures: [
+        {
+            name: "A mov example",
+            sigs: [ "68 ?? ?? ?? ??" ]
+        },
+        {
+            name: "A nop example",
+            sigs: [ "90 ?? ?? 68" ]
+        }
+    ]
+    
+}

@@ -1,6 +1,6 @@
 
 cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
-include(load_catch.cmake)
+include(../cmake/load_catch.cmake)
 
 
 include_directories (${CMAKE_SOURCE_DIR}/src

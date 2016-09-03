@@ -24,7 +24,7 @@ public:
 
 TEST_CASE("A valid signature is compiled", "[sigscannerentry]") {
     std::unique_ptr<SigScannerEntryTest> entryTest;
-    REQUIRE_NOTHROW(entryTest.reset(new SigScannerEntryTest({ "A0 ?? CD" })));
+    REQUIRE_NOTHROW(entryTest.reset(new SigScannerEntryTest({ "A0  ??CD" })));
 
     const auto& patterns = entryTest->GetCompiledPatternsForTest();
     REQUIRE(patterns.size() == 1u);
