@@ -11,6 +11,10 @@ set(MULTIPASS_SIGSCANNER_FILES
     SigScanner.cpp
 )
 
+# TODO: Add clang-tidy if available
+# set(CMAKE_CXX_CLANG_TIDY "F:/clang-dynamic/bin/clang-tidy.exe")
+
+# The Library
 include(../cmake/load_tclap.cmake)
 include(../cmake/load_json.cmake)
 set(MULTIPASS_ADDITIONAL_INCLUDES ${TCLAP_INCLUDE_DIR} ${JSON_INCLUDE_DIR})
@@ -26,3 +30,4 @@ if(CPPCHECK_FOUND)
     include (../cmake/3rdparty/CppcheckTargets.cmake)
     add_cppcheck(MultipassSigscannerLib STYLE FORCE)
 endif()
+
