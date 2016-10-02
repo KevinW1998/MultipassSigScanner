@@ -23,5 +23,6 @@ target_link_libraries (MultipassSigscannerMain MultipassSigscannerLib)
 
 if(CPPCHECK_FOUND)
     message(STATUS "Added MultipassSigscannerLib to cppcheck!")
+    include (../cmake/3rdparty/CppcheckTargets.cmake)
     add_cppcheck(MultipassSigscannerLib STYLE FORCE)
 endif()

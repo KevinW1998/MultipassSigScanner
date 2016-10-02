@@ -6,7 +6,7 @@
 namespace MPSig {
     class SigScannerFileOpenException : public std::runtime_error {
     public:
-        SigScannerFileOpenException(const std::string& fileName);
+        explicit SigScannerFileOpenException(const std::string& fileName);
     };
 }
 

@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 3.6)
 
 project (MultipassSigscanner)
 
@@ -8,10 +8,9 @@ enable_testing ()
 # Now check for Cppcheck
 include (cmake/3rdparty/Findcppcheck.cmake)
 if(CPPCHECK_FOUND)
-    message(STATUS "Cppcheck found, adding target")
-    include (cmake/3rdparty/CppcheckTargets.cmake)
+    message(STATUS "Cppcheck found")
 else()
-    message(STATUS "Cppcheck not found, skipping target")
+    message(STATUS "Cppcheck not found")
 endif()
 
 

@@ -12,8 +12,8 @@ namespace MPSig {
         std::intptr_t m_offset;
         SigScannerEntry m_functionStartSig;
     public:
-        SigScanner(const std::string& fName);
-        SigScanner(const std::vector<char>& data);
+        explicit SigScanner(const std::string& fName);
+        explicit SigScanner(const std::vector<char>& data);
 
         // Getter
         std::intptr_t GetOffset() const;

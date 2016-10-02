@@ -7,7 +7,7 @@ TEST_CASE("Tests the scanner", "[sigscanner]") {
     std::intptr_t offset = 10u;
 
     scanner.SetOffset(offset);
-    scanner.SetFunctionStartSig({"55 8B EC"});
+    scanner.SetFunctionStartSig({ {"55 8B EC"} });
 
     // Single start function signature, single normal signature
     MPSig::SigScannerEntry movEntry({ "68 ?? ?? ?? ??" });

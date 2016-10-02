@@ -12,7 +12,7 @@ namespace MPSig {
         std::vector<std::vector<std::pair<char, bool>>> m_compiledPatterns;
     public:
         SigScannerEntry(const std::initializer_list<std::string>& patterns);
-        SigScannerEntry(const std::vector<std::string>& patterns);
+        explicit SigScannerEntry(const std::vector<std::string>& patterns);
     protected:
         const std::vector<std::vector<std::pair<char, bool>>>& GetCompiledPatterns() const;
     };
