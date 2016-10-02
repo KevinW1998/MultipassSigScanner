@@ -21,3 +21,7 @@ target_include_directories(MultipassSigscannerLib PUBLIC ${MULTIPASS_ADDITIONAL_
 add_executable (MultipassSigscannerMain main.cpp)
 target_link_libraries (MultipassSigscannerMain MultipassSigscannerLib)
 
+if(CPPCHECK_FOUND)
+    message(STATUS "Added MultipassSigscannerLib to cppcheck!")
+    add_cppcheck(MultipassSigscannerLib STYLE FORCE)
+endif()
