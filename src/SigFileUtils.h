@@ -2,6 +2,7 @@
 #define SIGFILEUTILS_HHHHH
 
 #include <vector>
+#include <string>
 
 namespace MPSig {
     namespace Utils {

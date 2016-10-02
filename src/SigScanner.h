@@ -27,7 +27,7 @@ namespace MPSig {
 
         // Return value #1, pattern found at address
         // Return value #2, found function with the function start signature
-        std::pair<std::intptr_t, std::intptr_t> Scan(const SigScannerEntry& entry);
+        std::pair<std::intptr_t, std::intptr_t> Scan(const SigScannerEntry& entry, std::size_t skipCount = 0u, std::intptr_t start = 0u);
     };
 }
 

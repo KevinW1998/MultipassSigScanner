@@ -1,6 +1,8 @@
 #include "SigScannerEntry.h"
 
 #include <cctype>
+#include <stdexcept>
+#include <cstring>
 
 MPSig::SigScannerEntry::SigScannerEntry(const std::initializer_list<std::string>& patterns) : SigScannerEntry({patterns.begin(), patterns.end()})
 {}
@@ -12,7 +14,7 @@ MPSig::SigScannerEntry::SigScannerEntry(const std::vector<std::string>& patterns
 
         std::vector<std::pair<char, bool>> compiledPattern;
         // Convert the pattern to a vector of data.. 
-        for (int i = 0; i < pattern.length(); ++i) {
+        for (std::size_t i = 0; i < pattern.length(); ++i) {
             if (i == pattern.length() - 1) {
                 if (!std::isspace(pattern[i]))
                     throw std::invalid_argument("Expected full 2-byte hex at end, got single hex!");

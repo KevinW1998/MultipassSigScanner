@@ -2,20 +2,31 @@
 #include "SigFileUtils.h"
 
 #include <algorithm>
+#include <stdexcept>
+#include <type_traits>
 
+// Checks with a list of patterns for the relevant address
 template<typename DataIt, typename SearchFuncType>
 auto FindSignatureByIterator(
     DataIt dataItBegin,
     DataIt dataItEnd,
     const std::vector<std::vector<std::pair<char, bool>>>& compiledPatterns, 
+    std::size_t skipCount,
     SearchFuncType searchFunc
 ) 
 {  
     for (const auto& nextPattern : compiledPatterns) {
+        std::size_t curSkipCount = skipCount;
+        DataIt curIt = dataItBegin;
         while (true) {
-            auto resultIt = searchFunc(dataItBegin, dataItEnd, nextPattern);
+            DataIt resultIt = searchFunc(curIt, dataItEnd, nextPattern);
             if (resultIt != dataItEnd) {
-                return resultIt;
+                if(curSkipCount > 0) {
+                    curIt = resultIt + 1;
+                    curSkipCount--;
+                } else {
+                    return resultIt;
+                }
             } else {
                 break;
             }
@@ -58,8 +69,11 @@ void MPSig::SigScanner::SetFunctionStartSig(const MPSig::SigScannerEntry& val)
     m_functionStartSig = val;
 }
 
-std::pair<std::intptr_t, std::intptr_t> MPSig::SigScanner::Scan(const SigScannerEntry& entry)
+std::pair<std::intptr_t, std::intptr_t> MPSig::SigScanner::Scan(const SigScannerEntry& entry, std::size_t skipCount, intptr_t start)
 {
+    if(start < 0 || start >= static_cast<int>(m_data.size()))
+        throw std::runtime_error(std::string("Invalid start offset, must be between 0 and ") + std::to_string(m_data.size()) + ", but is " + std::to_string(start));
+
     // TODO: std::pair<char, bool> to own class
     const auto& compiledPatterns = entry.GetCompiledPatterns();
     auto isMatchedPatternFunc =
@@ -68,17 +82,26 @@ std::pair<std::intptr_t, std::intptr_t> MPSig::SigScanner::Scan(const SigScanner
         return (!currPattern.second) || curr == currPattern.first;
     };
 
-    auto mainSigIt = FindSignatureByIterator(m_data.cbegin(), m_data.cend(), compiledPatterns, 
+    auto mainSigIt = FindSignatureByIterator(
+                m_data.cbegin() + start,
+                m_data.cend(),
+                compiledPatterns,
+                skipCount,
         [&isMatchedPatternFunc](auto itStart, auto itEnd, auto compiledPattern) {
         return std::search(itStart, itEnd, compiledPattern.begin(), compiledPattern.end(), isMatchedPatternFunc);
     });
+
     std::intptr_t addr = 0;
     std::intptr_t funcAddr = 0;
     if (mainSigIt != m_data.cend()) {
         addr = std::distance(m_data.cbegin(), mainSigIt) + m_offset;
 
         const auto& compiledPatternsForFunctionStartSig = m_functionStartSig.GetCompiledPatterns();
-        auto funcStartSigIt = FindSignatureByIterator(std::make_reverse_iterator(mainSigIt), m_data.crend(), compiledPatternsForFunctionStartSig, 
+        auto funcStartSigIt = FindSignatureByIterator(
+                    std::make_reverse_iterator(mainSigIt),
+                    m_data.crend(),
+                    compiledPatternsForFunctionStartSig,
+                    0u,
             [&isMatchedPatternFunc](auto itStart, auto itEnd, auto compiledPattern) {
             auto searchResultIt = std::search(itStart, itEnd, compiledPattern.crbegin(), compiledPattern.crend(), isMatchedPatternFunc);
             if (searchResultIt != itEnd)
