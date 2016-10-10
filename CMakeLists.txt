@@ -5,6 +5,9 @@ project (MultipassSigscanner)
 # Enable Testing
 enable_testing ()
 
+# Set C++14
+set(CMAKE_CXX_STANDARD 14)
+
 # Now check for Cppcheck
 include (cmake/3rdparty/Findcppcheck.cmake)
 if(CPPCHECK_FOUND)

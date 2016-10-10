@@ -3,6 +3,7 @@
 #include <cctype>
 #include <stdexcept>
 #include <cstring>
+#include <string>
 
 MPSig::SigScannerEntry::SigScannerEntry(const std::initializer_list<std::string>& patterns) : SigScannerEntry({patterns.begin(), patterns.end()})
 {}

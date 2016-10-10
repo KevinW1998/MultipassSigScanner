@@ -13,7 +13,7 @@ std::vector<char> MPSig::Utils::ReadFileBinary(const std::string& fileName)
     if (!file.eof() && !file.fail())
     {
         file.seekg(0, std::ios_base::end);
-        std::size_t fileSize = static_cast<std::size_t>(file.tellg().seekpos());
+        std::size_t fileSize = static_cast<std::size_t>(file.tellg());
         data.resize(fileSize);
 
         file.seekg(0, std::ios_base::beg);
