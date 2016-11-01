@@ -15,9 +15,10 @@ namespace MPSig {
     public:
         SearchPatternBuilder();
 
-        SearchPatternBuilder& hasHexPattern(gsl::cstring_span<-1> pattern);
+        SearchPatternBuilder& HasHexPattern(gsl::cstring_span<-1> pattern);
+        SearchPatternBuilder& ReferencesBSTR(gsl::cwstring_span<-1> bstrText);
 
-        SearchPattern compile();
+        SearchPattern Compile();
     };
 }
 

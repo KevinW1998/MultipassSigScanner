@@ -1,5 +1,5 @@
-#ifndef SEARCHPATTERNHEXMATCHER_HHHHH
-#define SEARCHPATTERNHEXMATCHER_HHHHH
+#ifndef SEARCHPATTERNREFBSTR_HHHHH
+#define SEARCHPATTERNREFBSTR_HHHHH
 
 #include <gsl/gsl>
 #include <vector>
@@ -9,19 +9,22 @@
 
 namespace MPSig {
     namespace detail {
-        class SearchPatternHexMatcher final : public SearchPatternBase {
+        class SearchPatternRefBSTR final : public SearchPatternBase {
         private:
-            std::vector<std::pair<char, bool>> m_compiledPattern;
+            std::wstring m_textToCompare;
+        
+            template<typename It> 
+            bool ExecRefBSTRByIt(const MPSig::SigScannerMemoryData& data, It begin, It end) const;
         public:
-            SearchPatternHexMatcher(gsl::cstring_span<-1> hexPattern);
-            
+            SearchPatternRefBSTR(gsl::cwstring_span<-1> textToCompare);
+
             virtual SearchPatternBase::ExecFirstResult<gsl_span_cit_t> ExecFirst(const MPSig::SigScannerMemoryData& data, gsl_span_cit_t begin, gsl_span_cit_t end) const override;
             virtual SearchPatternBase::ExecFirstResult<gsl_span_crit_t> ExecFirst(const MPSig::SigScannerMemoryData& data, gsl_span_crit_t begin, gsl_span_crit_t end) const override;
+            
             virtual SearchPatternBase::ExecFirstResult<gsl_span_cit_t> ExecDepend(const MPSig::SigScannerMemoryData& data, gsl_span_cit_t begin, gsl_span_cit_t end) const override;
             virtual SearchPatternBase::ExecFirstResult<gsl_span_crit_t> ExecDepend(const MPSig::SigScannerMemoryData& data, gsl_span_crit_t begin, gsl_span_crit_t end) const override;
 
         };
-
     }
 }
 

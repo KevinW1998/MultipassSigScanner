@@ -10,12 +10,15 @@ set(MULTIPASS_SIGSCANNER_FILES
     search/detail/SearchPatternBase.h
     search/detail/SearchPatternHexMatcher.h
     search/detail/SearchPatternHexMatcher.cpp
-    SigScannerEntry.h 
-    SigScannerEntry.cpp 
+    search/detail/SearchPatternRefBSTR.h
+    search/detail/SearchPatternRefBSTR.cpp
     SigFileUtils.h 
     SigFileUtils.cpp 
+    SigScannerMemoryData.h 
+    SigScannerMemoryData.cpp
     SigScanner.h 
     SigScanner.cpp
+
 )
 
 # TODO: Add clang-tidy if available

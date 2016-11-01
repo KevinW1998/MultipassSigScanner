@@ -45,17 +45,48 @@ ItData ExecByIt(ItData begin, ItData end, ItPattern patternBegin, ItPattern patt
     });
 }
 
-typename MPSig::detail::SearchPatternBase::gsl_span_cit_t MPSig::detail::SearchPatternHexMatcher::Exec(gsl_span_cit_t begin, gsl_span_cit_t end) const
+MPSig::detail::SearchPatternBase::ExecFirstResult<typename MPSig::detail::SearchPatternBase::gsl_span_cit_t> 
+    MPSig::detail::SearchPatternHexMatcher::ExecFirst(const MPSig::SigScannerMemoryData& data, gsl_span_cit_t begin, gsl_span_cit_t end) const
 {
-    return ExecByIt(begin, end, m_compiledPattern.cbegin(), m_compiledPattern.cend());
+    auto result = ExecByIt(begin, end, m_compiledPattern.cbegin(), m_compiledPattern.cend());
+    if (result == end)
+        return{ false, end, end };
+    return{ true, result, result + m_compiledPattern.size() };
 }
 
-typename MPSig::detail::SearchPatternBase::gsl_span_crit_t MPSig::detail::SearchPatternHexMatcher::Exec(gsl_span_crit_t begin, gsl_span_crit_t end) const
+MPSig::detail::SearchPatternBase::ExecFirstResult<typename MPSig::detail::SearchPatternBase::gsl_span_crit_t> 
+    MPSig::detail::SearchPatternHexMatcher::ExecFirst(const MPSig::SigScannerMemoryData& data, gsl_span_crit_t begin, gsl_span_crit_t end) const
 {
-    auto ret = ExecByIt(begin, end, m_compiledPattern.crbegin(), m_compiledPattern.crend()); // Add pattern size
-    if (ret != end)
-        ret += m_compiledPattern.size();
+    auto result = ExecByIt(begin, end, m_compiledPattern.crbegin(), m_compiledPattern.crend()); // Add pattern size
+    if (result == end)
+        return{ false, end, end };
+
+    return{ true, result, result + m_compiledPattern.size()};
+}
+
+MPSig::detail::SearchPatternBase::ExecFirstResult<typename MPSig::detail::SearchPatternBase::gsl_span_cit_t> 
+    MPSig::detail::SearchPatternHexMatcher::ExecDepend(const MPSig::SigScannerMemoryData& data, gsl_span_cit_t begin, gsl_span_cit_t end) const
+{
+    if (std::distance(begin, end) < m_compiledPattern.size())
+        return{ false, end, end };
+
+    auto result = ExecByIt(begin, begin + m_compiledPattern.size(), m_compiledPattern.cbegin(), m_compiledPattern.cend());
+    if (result != end)
+        return{ true, result, result + m_compiledPattern.size() };
     
-    return ret;
+    return{ false, end, end };
+}
+
+MPSig::detail::SearchPatternBase::ExecFirstResult<typename MPSig::detail::SearchPatternBase::gsl_span_crit_t>
+    MPSig::detail::SearchPatternHexMatcher::ExecDepend(const MPSig::SigScannerMemoryData& data, gsl_span_crit_t begin, gsl_span_crit_t end) const
+{
+    if (std::distance(begin, end) < m_compiledPattern.size())
+        return{ false, end, end };
+
+    auto result = ExecByIt(begin, begin + m_compiledPattern.size(), m_compiledPattern.cbegin(), m_compiledPattern.cend());
+    if (result != end)
+        return{ true, result, result + m_compiledPattern.size() };
+
+    return{ false, end, end };
 }
 

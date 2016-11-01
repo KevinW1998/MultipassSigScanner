@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
         std::vector<char> configData = MPSig::Utils::ReadFileBinary(configFilename.getValue());
         auto jsonObj = json::parse(configData.begin(), configData.end());
         
-        
+        /*
         MPSig::SigScanner scanner(binaryFilename.getValue());
         scanner.SetOffset(jsonObj.at("offset"));
         std::vector<std::string> functionStartSigs = jsonObj.at("function-start-sig");
@@ -38,6 +38,8 @@ int main(int argc, char* argv[]) {
             auto scanResult = scanner.Scan(entry);
             std::printf("Possible scan hit is 0x%08x and function hit is 0x%08x\n", scanResult.first, scanResult.second);
         }
+
+        */
 
     } catch (const TCLAP::ArgException& ex) {
         std::cerr << "error: " << ex.error() << " for arg " << ex.argId() << std::endl;
