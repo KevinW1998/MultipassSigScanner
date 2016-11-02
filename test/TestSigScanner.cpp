@@ -13,7 +13,6 @@ TEST_CASE("Tests the scanner with Pattern (new version)", "[sigscanner]") {
     MPSig::SigScanner scanner(emulatedMemData);
     std::intptr_t offset = reinterpret_cast<std::intptr_t>(ptr);
 
-    scanner.SetOffset(offset);
     scanner.SetFunctionStartPattern(MPSig::SearchPatternBuilder().HasHexPattern("55 8B EC").Compile());
 
     // Single start function signature, single normal signature

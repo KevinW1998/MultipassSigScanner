@@ -38,9 +38,12 @@ MPSig::detail::SearchPatternBase::ExecFirstResult<typename MPSig::detail::Search
 {
     constexpr int ptrSize = sizeof(void*);
     
-    bool success = ExecRefBSTRByIt(data, begin, end);
-    if (success) {
-        return { true, begin, begin + ptrSize };
+    auto current = begin;
+    while (std::distance(current, end) >= 4) {
+        bool success = ExecRefBSTRByIt(data, current, end);
+        if (success)
+            return{ true, current, current + ptrSize };
+        current++;
     }
 
     return { false, end, end };
@@ -50,8 +53,14 @@ MPSig::detail::SearchPatternBase::ExecFirstResult<typename MPSig::detail::Search
     MPSig::detail::SearchPatternRefBSTR::ExecFirst(const MPSig::SigScannerMemoryData& data, gsl_span_crit_t begin, gsl_span_crit_t end) const
 {
     constexpr int ptrSize = sizeof(void*);
-    if (std::distance(begin, end) >= 4 && ExecRefBSTRByIt(data, begin + ptrSize, end))
-        return{ true, begin, begin + ptrSize };
+
+    auto current = begin;
+    while (std::distance(current, end) >= 4) {
+        bool success = ExecRefBSTRByIt(data, current, end);
+        if (success)
+            return{ true, current, current + ptrSize };
+        current++;
+    }
     
     return{ false, end, end };
 }

@@ -18,10 +18,8 @@ namespace MPSig {
         explicit SigScanner(const SigScannerMemoryData& data);
 
         // Getter
-        std::ptrdiff_t GetOffset() const;
         
         // Setter
-        void SetOffset(std::ptrdiff_t val);
         void SetFunctionStartPattern(SearchPattern&& val);
         
         // Return value #1, pattern found at address

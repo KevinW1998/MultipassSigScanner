@@ -37,9 +37,11 @@ MPSig::detail::SearchPatternHexMatcher::SearchPatternHexMatcher(gsl::cstring_spa
 template<typename ItData, typename ItPattern>
 ItData ExecByIt(ItData begin, ItData end, ItPattern patternBegin, ItPattern patternEnd)
 {
+    bool is0x90 = *begin == '\x90';
+    
     // Search for the pattern..
     return std::search(begin, end, patternBegin, patternEnd,
-        [&](unsigned char curr, std::pair<unsigned char, bool> currPattern)
+        [&](const unsigned char& curr, const std::pair<unsigned char, bool>& currPattern)
     {
         return (!currPattern.second) || curr == currPattern.first;
     });

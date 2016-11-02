@@ -16,5 +16,8 @@ target_link_libraries (MultipassSigscannerTest
 
 set_target_properties(MultipassSigscannerTest PROPERTIES COMPILE_DEFINITIONS "GSL_THROW_ON_CONTRACT_VIOLATION")                       
 
-file(COPY test_data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_command(TARGET MultipassSigscannerTest POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/test/test_data ${CMAKE_CURRENT_BINARY_DIR}/test_data)
+
 add_test (NAME MultipassSigscannerTestProj COMMAND MultipassSigscannerTest)

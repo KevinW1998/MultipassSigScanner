@@ -9,18 +9,6 @@ MPSig::SigScanner::SigScanner(const SigScannerMemoryData& data) :
     m_data(data)
 {}
 
-std::ptrdiff_t MPSig::SigScanner::GetOffset() const
-{
-    return m_data.GetOffset();
-}
-
-
-void MPSig::SigScanner::SetOffset(std::ptrdiff_t val)
-{
-    m_data.SetOffset(val);
-}
-
-
 
 void MPSig::SigScanner::SetFunctionStartPattern(SearchPattern&& val)
 {
