@@ -4,9 +4,9 @@ MPSig::SearchPattern::SearchPattern(std::vector<std::unique_ptr<MPSig::detail::S
     m_patternSteps(std::move(patternsToMove))
 {}
 
-template<typename It, typename = std::enable_if < 
+template<typename It, typename std::enable_if <
     std::is_same<It, typename MPSig::detail::SearchPatternBase::gsl_span_cit_t>::value ||
-    std::is_same<It, typename MPSig::detail::SearchPatternBase::gsl_span_crit_t>::value>
+    std::is_same<It, typename MPSig::detail::SearchPatternBase::gsl_span_crit_t>::value, int>::type
 >
 std::pair<std::ptrdiff_t, bool> MPSig::SearchPattern::ExecImpl(const MPSig::SigScannerMemoryData& data, It begin, It end) const
 {

@@ -16,9 +16,9 @@ namespace MPSig {
         friend class SigScanner;
         std::vector<std::unique_ptr<detail::SearchPatternBase>> m_patternSteps;
 
-        template<typename It, typename = std::enable_if <
+        template<typename It, typename std::enable_if <
             std::is_same<It, typename MPSig::detail::SearchPatternBase::gsl_span_cit_t>::value ||
-            std::is_same<It, typename MPSig::detail::SearchPatternBase::gsl_span_crit_t>::value>
+            std::is_same<It, typename MPSig::detail::SearchPatternBase::gsl_span_crit_t>::value, int>::type = 0
         >
         std::pair<std::ptrdiff_t, bool> ExecImpl(const MPSig::SigScannerMemoryData& data, It begin, It end) const;
 
