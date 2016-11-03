@@ -29,7 +29,7 @@ std::pair<std::intptr_t, std::intptr_t> MPSig::SigScanner::Scan(const SearchPatt
         offset = result.first;
         if (m_functionStartPattern.hasPatterns()) {
             auto dataViewToEnd = dataView.subspan(0, offset);
-            result = m_functionStartPattern.ReverseExec(m_data);
+            result = m_functionStartPattern.ReverseExec(MPSig::SigScannerMemoryData(dataViewToEnd));
             if (result.second) {
                 functionOffset = result.first + m_data.GetOffset(); // plus add offset to th address
             }

@@ -26,7 +26,18 @@ bool MPSig::detail::SearchPatternRefBSTR::ExecRefBSTRByIt(const MPSig::SigScanne
 
     // Deref:
     std::uint32_t lenBytes = *reinterpret_cast<std::uint32_t*>(derefResult.first - 4);
-    gsl::cwstring_span<-1> dataToBSTR(reinterpret_cast<wchar_t*>(derefResult.first), lenBytes - 1);
+    if(lenBytes > 400) // TODO: Better size check!
+        return false;
+
+    gsl::cwstring_span<-1> dataToBSTR(reinterpret_cast<wchar_t*>(derefResult.first), lenBytes / 2);
+    while (dataToBSTR.size() >= 1) {
+        wchar_t curChar = *(dataToBSTR.cend() - 1);
+        if (curChar != L'\x00')
+            break;
+        else
+            dataToBSTR = dataToBSTR.subspan(0, dataToBSTR.size() - 1);
+    }
+
     if (dataToBSTR == m_textToCompare)
         return true;
 
