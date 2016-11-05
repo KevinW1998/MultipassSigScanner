@@ -8,6 +8,8 @@
 #include <string>
 #include <memory>
 
+#include <gsl/string_span>
+
 namespace MPSig {
 
     class SearchPatternBuilder {

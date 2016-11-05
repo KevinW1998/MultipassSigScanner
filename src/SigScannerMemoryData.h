@@ -2,7 +2,8 @@
 #define SIGSCANNERMEMORYDATA_HHHHH
 
 #include <vector>
-#include <gsl/gsl>
+#include <gsl/span>
+#include <string>
 
 namespace MPSig {
     class SigScannerMemoryData {

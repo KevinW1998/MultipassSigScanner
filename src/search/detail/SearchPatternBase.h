@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 
-#include <gsl/gsl>
+#include <gsl/span>
 
 namespace MPSig {
     namespace detail {

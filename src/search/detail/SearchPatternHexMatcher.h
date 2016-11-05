@@ -1,9 +1,10 @@
 #ifndef SEARCHPATTERNHEXMATCHER_HHHHH
 #define SEARCHPATTERNHEXMATCHER_HHHHH
 
-#include <gsl/gsl>
+#include <gsl/string_span>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 #include "SearchPatternBase.h"
 

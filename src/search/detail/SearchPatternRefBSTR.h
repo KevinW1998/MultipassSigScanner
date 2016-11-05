@@ -1,7 +1,8 @@
 #ifndef SEARCHPATTERNREFBSTR_HHHHH
 #define SEARCHPATTERNREFBSTR_HHHHH
 
-#include <gsl/gsl>
+
+#include <gsl/string_span>
 #include <vector>
 #include <string>
 
