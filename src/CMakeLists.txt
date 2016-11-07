@@ -21,9 +21,6 @@ set(MULTIPASS_SIGSCANNER_FILES
 
 )
 
-# TODO: Add clang-tidy if available
-# set(CMAKE_CXX_CLANG_TIDY "F:/clang-dynamic/bin/clang-tidy.exe")
-
 # The Library
 add_library (MultipassSigscannerLib ${MULTIPASS_SIGSCANNER_FILES})
 # Library dependencies
