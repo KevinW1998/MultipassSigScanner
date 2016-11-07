@@ -31,11 +31,8 @@ namespace MPSig {
 
         bool hasPatterns() const { return m_patternSteps.size() > 0; }
     public:
-        SearchPattern(const SearchPattern& other) = delete;
-        SearchPattern(SearchPattern&& other) = default;
-
-        SearchPattern& operator=(const SearchPattern& other) = delete;
-        SearchPattern& operator=(SearchPattern&& other) = default;
+        SearchPattern(const SearchPattern& other);
+        SearchPattern& operator=(const SearchPattern& other);
     };
 
 }

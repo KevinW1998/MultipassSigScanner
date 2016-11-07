@@ -4,6 +4,7 @@ MPSig::SearchPattern::SearchPattern(std::vector<std::unique_ptr<MPSig::detail::S
     m_patternSteps(std::move(patternsToMove))
 {}
 
+
 template<typename It, typename std::enable_if <
     std::is_same<It, typename MPSig::detail::SearchPatternBase::gsl_span_cit_t>::value ||
     std::is_same<It, typename MPSig::detail::SearchPatternBase::gsl_span_crit_t>::value, int>::type
@@ -89,4 +90,21 @@ std::pair<std::ptrdiff_t, bool> MPSig::SearchPattern::ReverseExec(const MPSig::S
     if (ret.second)
         ret.first = dataView.size() - ret.first; // ret.first is the distance between current and end, but we want the distance between begin and end
     return ret;
+}
+
+MPSig::SearchPattern::SearchPattern(const SearchPattern& other)
+{
+    *this = other;
+}
+
+MPSig::SearchPattern& MPSig::SearchPattern::operator=(const SearchPattern& other)
+{
+    if (&other == this) {
+        return *this;
+    }
+
+    m_patternSteps.clear();
+    for (const auto& pattern : other.m_patternSteps) {
+        m_patternSteps.push_back(pattern->Clone());
+    }
 }

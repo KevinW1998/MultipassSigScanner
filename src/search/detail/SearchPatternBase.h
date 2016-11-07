@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 
 #include <gsl/span>
 
@@ -31,6 +32,8 @@ namespace MPSig {
             // ExecDepend must only check the current location as it depends on a search success
             virtual ExecFirstResult<gsl_span_cit_t> ExecDepend(const MPSig::SigScannerMemoryData& data, gsl_span_cit_t begin, gsl_span_cit_t end) const = 0;
             virtual ExecFirstResult<gsl_span_crit_t> ExecDepend(const MPSig::SigScannerMemoryData& data, gsl_span_crit_t begin, gsl_span_crit_t end) const = 0;
+        
+            virtual std::unique_ptr<SearchPatternBase> Clone() const = 0;
         };
 
     }    

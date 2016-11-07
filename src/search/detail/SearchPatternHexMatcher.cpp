@@ -92,3 +92,8 @@ MPSig::detail::SearchPatternBase::ExecFirstResult<typename MPSig::detail::Search
     return{ false, end, end };
 }
 
+std::unique_ptr<MPSig::detail::SearchPatternBase> MPSig::detail::SearchPatternHexMatcher::Clone() const
+{
+    return std::unique_ptr<SearchPatternBase>(new SearchPatternHexMatcher(*this));
+}
+

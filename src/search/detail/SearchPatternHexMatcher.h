@@ -18,9 +18,11 @@ namespace MPSig {
             
             virtual SearchPatternBase::ExecFirstResult<gsl_span_cit_t> ExecFirst(const MPSig::SigScannerMemoryData& data, gsl_span_cit_t begin, gsl_span_cit_t end) const override;
             virtual SearchPatternBase::ExecFirstResult<gsl_span_crit_t> ExecFirst(const MPSig::SigScannerMemoryData& data, gsl_span_crit_t begin, gsl_span_crit_t end) const override;
+            
             virtual SearchPatternBase::ExecFirstResult<gsl_span_cit_t> ExecDepend(const MPSig::SigScannerMemoryData& data, gsl_span_cit_t begin, gsl_span_cit_t end) const override;
             virtual SearchPatternBase::ExecFirstResult<gsl_span_crit_t> ExecDepend(const MPSig::SigScannerMemoryData& data, gsl_span_crit_t begin, gsl_span_crit_t end) const override;
 
+            virtual std::unique_ptr<SearchPatternBase> Clone() const override;
         };
 
     }

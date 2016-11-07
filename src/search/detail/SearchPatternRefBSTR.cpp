@@ -98,3 +98,8 @@ MPSig::detail::SearchPatternBase::ExecFirstResult<typename MPSig::detail::Search
 
     return{ false, end, end };
 }
+
+std::unique_ptr<MPSig::detail::SearchPatternBase> MPSig::detail::SearchPatternRefBSTR::Clone() const
+{
+    return std::unique_ptr<SearchPatternBase>(new SearchPatternRefBSTR(*this));
+}

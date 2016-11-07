@@ -9,6 +9,7 @@ add_executable (MultipassSigscannerTest
                 TestSigFileUtils.cpp
                 TestSigScanner.cpp
                 TestSearchPatternRefBSTR.cpp
+                TestSearchPattern.cpp
                 )
 target_link_libraries (MultipassSigscannerTest
                        MultipassSigscannerLib
